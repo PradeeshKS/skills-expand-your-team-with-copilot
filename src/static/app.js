@@ -865,4 +865,32 @@ document.addEventListener("DOMContentLoaded", () => {
   checkAuthentication();
   initializeFilters();
   fetchActivities();
+
+  // Dark mode toggle functionality
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+  const toggleIcon = darkModeToggle.querySelector(".toggle-icon");
+  const toggleText = darkModeToggle.querySelector(".toggle-text");
+
+  // Check for saved dark mode preference
+  const savedDarkMode = localStorage.getItem("darkMode");
+  if (savedDarkMode === "enabled") {
+    document.body.classList.add("dark-mode");
+    toggleIcon.textContent = "☀️";
+    toggleText.textContent = "Light";
+  }
+
+  // Toggle dark mode on button click
+  darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    
+    if (document.body.classList.contains("dark-mode")) {
+      toggleIcon.textContent = "☀️";
+      toggleText.textContent = "Light";
+      localStorage.setItem("darkMode", "enabled");
+    } else {
+      toggleIcon.textContent = "🌙";
+      toggleText.textContent = "Dark";
+      localStorage.setItem("darkMode", "disabled");
+    }
+  });
 });
