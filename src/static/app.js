@@ -432,7 +432,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // Copy link to clipboard
       const textToCopy = `${shareTitle}\n${shareText}\n${currentUrl}`;
       
-      if (navigator.clipboard && navigator.clipboard.writeText) {
+      // Check if Clipboard API is available and secure context
+      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
         navigator.clipboard.writeText(textToCopy)
           .then(() => {
             showMessage("Link copied to clipboard!", "success");
@@ -582,25 +583,21 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     // Create social sharing buttons
-    const shareUrl = encodeURIComponent(window.location.href);
-    const shareTitle = encodeURIComponent(`${name} - Mergington High School`);
-    const shareText = encodeURIComponent(`Check out ${name}: ${details.description}`);
-    
     const socialShareButtons = `
       <div class="social-share-container">
         <div class="social-share-label">Share this activity:</div>
         <div class="social-share-buttons">
-          <button class="share-button share-facebook" data-activity="${name}" title="Share on Facebook">
-            <span class="share-icon">📘</span>
+          <button class="share-button share-facebook" data-activity="${name}" title="Share on Facebook" aria-label="Share on Facebook">
+            <span class="share-icon" aria-hidden="true">📘</span>
           </button>
-          <button class="share-button share-twitter" data-activity="${name}" title="Share on Twitter">
-            <span class="share-icon">🐦</span>
+          <button class="share-button share-twitter" data-activity="${name}" title="Share on Twitter" aria-label="Share on Twitter">
+            <span class="share-icon" aria-hidden="true">🐦</span>
           </button>
-          <button class="share-button share-email" data-activity="${name}" title="Share via Email">
-            <span class="share-icon">✉️</span>
+          <button class="share-button share-email" data-activity="${name}" title="Share via Email" aria-label="Share via Email">
+            <span class="share-icon" aria-hidden="true">✉️</span>
           </button>
-          <button class="share-button share-copy" data-activity="${name}" title="Copy Link">
-            <span class="share-icon">🔗</span>
+          <button class="share-button share-copy" data-activity="${name}" title="Copy Link" aria-label="Copy Link">
+            <span class="share-icon" aria-hidden="true">🔗</span>
           </button>
         </div>
       </div>
